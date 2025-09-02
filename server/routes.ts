@@ -56,13 +56,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const action = await storage.createAction(validatedData);
       
       // Update user stats
-      const user = await storage.getUser(validatedData.userId);
+      const user = await storage.getUser(validatedData.userId || "");
       if (user) {
         await storage.updateUser(user.id, {
-          btnBalance: user.btnBalance + (validatedData.reward || 0),
-          totalActions: user.totalActions + 1,
-          experience: user.experience + (validatedData.reward || 0),
-          carbonSaved: user.carbonSaved + 10, // 10g CO2 saved per action
+          btnBalance: (user.btnBalance || 0) + (validatedData.reward || 0),
+          totalActions: (user.totalActions || 0) + 1,
+          experience: (user.experience || 0) + (validatedData.reward || 0),
+          carbonSaved: (user.carbonSaved || 0) + 10, // 10g CO2 saved per action
         });
       }
 

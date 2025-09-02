@@ -3,9 +3,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useQuery } from "@tanstack/react-query";
 import { Plus } from "lucide-react";
+import type { NFT } from "@shared/schema";
 
 export default function NFTMarketplace() {
-  const { data: nfts, isLoading } = useQuery({
+  const { data: nfts, isLoading } = useQuery<NFT[]>({
     queryKey: ["/api/nfts"],
   });
 

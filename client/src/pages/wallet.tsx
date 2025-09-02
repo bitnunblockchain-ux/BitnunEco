@@ -2,13 +2,21 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowUp, ArrowDown, Wallet as WalletIcon, ShoppingCart, Gift, ArrowRightLeft, Shield, Bell, Download } from "lucide-react";
+import type { User, Transaction } from "@shared/schema";
+
+interface UserStatsResponse {
+  user: User;
+  recentActions: any[];
+  achievements: any[];
+  transactions: Transaction[];
+}
 
 export default function Wallet() {
-  const { data: userStats, isLoading } = useQuery({
+  const { data: userStats, isLoading } = useQuery<UserStatsResponse>({
     queryKey: ["/api/user/default-user/stats"],
   });
 
-  const { data: transactions } = useQuery({
+  const { data: transactions } = useQuery<Transaction[]>({
     queryKey: ["/api/user/default-user/transactions"],
   });
 

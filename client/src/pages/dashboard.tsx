@@ -4,11 +4,19 @@ import { Progress } from "@/components/ui/progress";
 import { useQuery } from "@tanstack/react-query";
 import { useActionMining } from "@/hooks/use-action-mining";
 import { Coins, MousePointer, Trophy, Leaf, Star, Share2, CheckSquare, Gift, Users, Settings } from "lucide-react";
+import type { User, Action, Achievement } from "@shared/schema";
+
+interface UserStatsResponse {
+  user: User;
+  recentActions: Action[];
+  achievements: Achievement[];
+  transactions: any[];
+}
 
 export default function Dashboard() {
   const { incrementActions, actionCount } = useActionMining();
   
-  const { data: userStats, isLoading } = useQuery({
+  const { data: userStats, isLoading } = useQuery<UserStatsResponse>({
     queryKey: ["/api/user/default-user/stats"],
   });
 

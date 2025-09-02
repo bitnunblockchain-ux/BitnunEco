@@ -53,23 +53,23 @@ export default function Footer() {
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <Link href="/dashboard">
-                  <a className="hover:text-primary transition-colors" data-testid="footer-link-dashboard">
+                  <span className="hover:text-primary transition-colors cursor-pointer" data-testid="footer-link-dashboard">
                     Dashboard
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/nft-marketplace">
-                  <a className="hover:text-primary transition-colors" data-testid="footer-link-nft">
+                  <span className="hover:text-primary transition-colors cursor-pointer" data-testid="footer-link-nft">
                     NFT Marketplace
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
                 <Link href="/wallet">
-                  <a className="hover:text-primary transition-colors" data-testid="footer-link-wallet">
+                  <span className="hover:text-primary transition-colors cursor-pointer" data-testid="footer-link-wallet">
                     Wallet
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
@@ -85,9 +85,9 @@ export default function Footer() {
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <Link href="/developer">
-                  <a className="hover:text-primary transition-colors" data-testid="footer-link-docs">
+                  <span className="hover:text-primary transition-colors cursor-pointer" data-testid="footer-link-docs">
                     Documentation
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>
@@ -113,9 +113,9 @@ export default function Footer() {
             <ul className="space-y-2 text-muted-foreground">
               <li>
                 <Link href="/faq">
-                  <a className="hover:text-primary transition-colors" data-testid="footer-link-help">
+                  <span className="hover:text-primary transition-colors cursor-pointer" data-testid="footer-link-help">
                     Help Center
-                  </a>
+                  </span>
                 </Link>
               </li>
               <li>

@@ -3,13 +3,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useQuery } from "@tanstack/react-query";
 import { Trophy, Star, Users } from "lucide-react";
+import type { User, Achievement } from "@shared/schema";
+
+interface UserStatsResponse {
+  user: User;
+  recentActions: any[];
+  achievements: Achievement[];
+  transactions: any[];
+}
 
 export default function Gamification() {
-  const { data: leaderboard, isLoading: leaderboardLoading } = useQuery({
+  const { data: leaderboard, isLoading: leaderboardLoading } = useQuery<User[]>({
     queryKey: ["/api/leaderboard"],
   });
 
-  const { data: userStats } = useQuery({
+  const { data: userStats } = useQuery<UserStatsResponse>({
     queryKey: ["/api/user/default-user/stats"],
   });
 

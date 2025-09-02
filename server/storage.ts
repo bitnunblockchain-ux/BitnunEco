@@ -174,15 +174,17 @@ export class MemStorage implements IStorage {
 
   async getLeaderboard(limit = 50): Promise<User[]> {
     return Array.from(this.users.values())
-      .sort((a, b) => b.btnBalance - a.btnBalance)
+      .sort((a, b) => (b.btnBalance || 0) - (a.btnBalance || 0))
       .slice(0, limit);
   }
 
   async createAction(insertAction: InsertAction): Promise<Action> {
     const id = randomUUID();
     const action: Action = {
-      ...insertAction,
       id,
+      userId: insertAction.userId || null,
+      type: insertAction.type,
+      reward: insertAction.reward || null,
       timestamp: new Date(),
     };
     this.actions.set(id, action);
@@ -192,7 +194,7 @@ export class MemStorage implements IStorage {
   async getUserActions(userId: string, limit = 50): Promise<Action[]> {
     return Array.from(this.actions.values())
       .filter(action => action.userId === userId)
-      .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+      .sort((a, b) => (b.timestamp?.getTime() || 0) - (a.timestamp?.getTime() || 0))
       .slice(0, limit);
   }
 
@@ -203,9 +205,14 @@ export class MemStorage implements IStorage {
   async createNFT(insertNFT: InsertNFT): Promise<NFT> {
     const id = randomUUID();
     const nft: NFT = {
-      ...insertNFT,
       id,
-      ownerId: insertNFT.creatorId,
+      name: insertNFT.name,
+      description: insertNFT.description || null,
+      imageUrl: insertNFT.imageUrl || null,
+      price: insertNFT.price,
+      creatorId: insertNFT.creatorId || null,
+      ownerId: insertNFT.creatorId || null,
+      category: insertNFT.category || null,
       isListed: true,
       createdAt: new Date(),
     };
@@ -231,8 +238,11 @@ export class MemStorage implements IStorage {
   async createTransaction(insertTransaction: InsertTransaction): Promise<Transaction> {
     const id = randomUUID();
     const transaction: Transaction = {
-      ...insertTransaction,
       id,
+      userId: insertTransaction.userId || null,
+      type: insertTransaction.type,
+      amount: insertTransaction.amount,
+      description: insertTransaction.description || null,
       timestamp: new Date(),
     };
     this.transactions.set(id, transaction);
@@ -242,15 +252,18 @@ export class MemStorage implements IStorage {
   async getUserTransactions(userId: string, limit = 50): Promise<Transaction[]> {
     return Array.from(this.transactions.values())
       .filter(transaction => transaction.userId === userId)
-      .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+      .sort((a, b) => (b.timestamp?.getTime() || 0) - (a.timestamp?.getTime() || 0))
       .slice(0, limit);
   }
 
   async createAchievement(insertAchievement: InsertAchievement): Promise<Achievement> {
     const id = randomUUID();
     const achievement: Achievement = {
-      ...insertAchievement,
       id,
+      userId: insertAchievement.userId || null,
+      name: insertAchievement.name,
+      description: insertAchievement.description || null,
+      icon: insertAchievement.icon || null,
       unlockedAt: new Date(),
     };
     this.achievements.set(id, achievement);
@@ -260,7 +273,7 @@ export class MemStorage implements IStorage {
   async getUserAchievements(userId: string): Promise<Achievement[]> {
     return Array.from(this.achievements.values())
       .filter(achievement => achievement.userId === userId)
-      .sort((a, b) => b.unlockedAt.getTime() - a.unlockedAt.getTime());
+      .sort((a, b) => (b.unlockedAt?.getTime() || 0) - (a.unlockedAt?.getTime() || 0));
   }
 }
 

@@ -5,8 +5,16 @@ import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Leaf, MousePointer, Share2, CheckSquare, Cpu, Gamepad2, Code } from "lucide-react";
 
+interface StatsResponse {
+  activeMiners: string;
+  carbonSaved: string;
+  transactionsToday: string;
+  totalActions: number;
+  topMiners: any[];
+}
+
 export default function Home() {
-  const { data: stats } = useQuery({
+  const { data: stats } = useQuery<StatsResponse>({
     queryKey: ["/api/stats"],
   });
 
