@@ -3,7 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useQuery } from "@tanstack/react-query";
 import { useActionMining } from "@/hooks/use-action-mining";
-import { Coins, MousePointer, Trophy, Leaf, Star, Share2, CheckSquare, Gift, Users, Settings } from "lucide-react";
+import { Coins, MousePointer, Trophy, Leaf, Star, Share2, CheckSquare, Gift, Users, Settings, Database, Brain, Shield } from "lucide-react";
+import { BlockchainDashboard, ProofOfActionCard } from "@/components/blockchain/blockchain-dashboard";
 import type { User, Action, Achievement } from "@shared/schema";
 
 interface UserStatsResponse {
@@ -46,6 +47,9 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold mb-2" data-testid="title-dashboard">Mining Dashboard</h1>
           <p className="text-muted-foreground">Track your mining progress, rewards, and ecosystem participation</p>
         </div>
+
+        {/* Blockchain Dashboard */}
+        <BlockchainDashboard />
 
         {/* Mining Stats Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -167,7 +171,7 @@ export default function Dashboard() {
                           </div>
                           <span className="text-sm">{action.type} mining</span>
                         </div>
-                        <div className="text-sm font-medium text-primary">+{(action.reward / 100).toFixed(2)} BTN</div>
+                        <div className="text-sm font-medium text-primary">+{((action.reward || 0) / 100).toFixed(2)} BTN</div>
                       </div>
                     ))
                   ) : (
@@ -183,6 +187,8 @@ export default function Dashboard() {
 
           {/* Side Panel */}
           <div className="space-y-6">
+            {/* Proof-of-Action Info */}
+            <ProofOfActionCard />
             {/* Achievements */}
             <Card data-testid="card-achievements">
               <CardHeader>
