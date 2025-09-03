@@ -1,0 +1,1 @@
+HashMap<std::string::String, HashMap<std::string::String, bool>>: wasm_bindgen::describe::WasmDescribe
