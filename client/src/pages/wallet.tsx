@@ -53,15 +53,13 @@ export default function Wallet() {
   };
 
   return (
-    <div className="pt-20 py-20">
-      <div className="container mx-auto px-6">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2" data-testid="title-wallet">BTN Wallet</h1>
-          <p className="text-muted-foreground">Manage your BTN tokens and transaction history</p>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Wallet Overview */}
+    <div>
+      <div className="pt-20 py-20">
+        <div className="container mx-auto px-6">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-2" data-testid="title-wallet">BTN Wallet</h1>
+            <p className="text-muted-foreground">Manage your BTN tokens and transaction history</p>
+          </div>
           <div className="lg:col-span-2 space-y-6">
             {/* Balance Card */}
             <Card className="mining-glow" data-testid="card-balance">
@@ -82,7 +80,6 @@ export default function Wallet() {
                 </div>
               </CardContent>
             </Card>
-
             {/* Transaction History */}
             <Card data-testid="card-transaction-history">
               <CardHeader>
@@ -107,7 +104,7 @@ export default function Wallet() {
                             {transaction.description}
                           </div>
                           <div className="text-sm text-muted-foreground" data-testid={`transaction-date-${transaction.id}`}>
-                            {new Date(transaction.timestamp).toLocaleDateString()}
+                            {transaction.timestamp ? new Date(transaction.timestamp).toLocaleDateString() : ""}
                           </div>
                         </div>
                       </div>
@@ -129,7 +126,6 @@ export default function Wallet() {
               </CardContent>
             </Card>
           </div>
-
           {/* Wallet Actions */}
           <div className="space-y-6">
             {/* Quick Actions */}
@@ -154,7 +150,6 @@ export default function Wallet() {
                 </div>
               </CardContent>
             </Card>
-
             {/* Staking Rewards */}
             <Card data-testid="card-staking-rewards">
               <CardHeader>
@@ -184,7 +179,6 @@ export default function Wallet() {
                 </div>
               </CardContent>
             </Card>
-
             {/* Wallet Settings */}
             <Card data-testid="card-wallet-settings">
               <CardHeader>

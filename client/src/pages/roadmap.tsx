@@ -94,11 +94,9 @@ export default function Roadmap() {
             Our journey to revolutionize blockchain technology with sustainability and accessibility at its core
           </p>
         </div>
-
         <div className="relative">
           {/* Timeline Line */}
           <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-border h-full hidden md:block"></div>
-
           <div className="space-y-12">
             {phases.map((phase, index) => (
               <div 
