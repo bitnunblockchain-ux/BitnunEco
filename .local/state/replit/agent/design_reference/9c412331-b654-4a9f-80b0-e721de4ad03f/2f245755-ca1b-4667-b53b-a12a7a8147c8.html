@@ -1,0 +1,1645 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitnun - Sustainable Blockchain Ecosystem</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                borderRadius: {
+                    lg: "var(--radius)",
+                    md: "calc(var(--radius) - 2px)",
+                    sm: "calc(var(--radius) - 4px)",
+                },
+                colors: {
+                    background: "var(--background)",
+                    foreground: "var(--foreground)",
+                    card: {
+                        DEFAULT: "var(--card)",
+                        foreground: "var(--card-foreground)",
+                    },
+                    popover: {
+                        DEFAULT: "var(--popover)",
+                        foreground: "var(--popover-foreground)",
+                    },
+                    primary: {
+                        DEFAULT: "var(--primary)",
+                        foreground: "var(--primary-foreground)",
+                    },
+                    secondary: {
+                        DEFAULT: "var(--secondary)",
+                        foreground: "var(--secondary-foreground)",
+                    },
+                    muted: {
+                        DEFAULT: "var(--muted)",
+                        foreground: "var(--muted-foreground)",
+                    },
+                    accent: {
+                        DEFAULT: "var(--accent)",
+                        foreground: "var(--accent-foreground)",
+                    },
+                    destructive: {
+                        DEFAULT: "var(--destructive)",
+                        foreground: "var(--destructive-foreground)",
+                    },
+                    border: "var(--border)",
+                    input: "var(--input)",
+                    ring: "var(--ring)",
+                    chart: {
+                        "1": "var(--chart-1)",
+                        "2": "var(--chart-2)",
+                        "3": "var(--chart-3)",
+                        "4": "var(--chart-4)",
+                        "5": "var(--chart-5)",
+                    }
+                },
+                fontFamily: {
+                    sans: ["var(--font-sans)"],
+                    mono: ["var(--font-mono)"],
+                }
+            },
+        }
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --background: hsl(220 13% 9%);
+            --foreground: hsl(220 9% 95%);
+            --card: hsl(220 13% 11%);
+            --card-foreground: hsl(220 9% 95%);
+            --popover: hsl(220 13% 11%);
+            --popover-foreground: hsl(220 9% 95%);
+            --primary: hsl(142 76% 36%);
+            --primary-foreground: hsl(220 9% 95%);
+            --secondary: hsl(142 69% 25%);
+            --secondary-foreground: hsl(220 9% 95%);
+            --muted: hsl(220 13% 15%);
+            --muted-foreground: hsl(220 9% 60%);
+            --accent: hsl(162 73% 46%);
+            --accent-foreground: hsl(220 9% 95%);
+            --destructive: hsl(0 84% 60%);
+            --destructive-foreground: hsl(220 9% 95%);
+            --border: hsl(220 13% 18%);
+            --input: hsl(220 13% 15%);
+            --ring: hsl(142 76% 36%);
+            --radius: 0.75rem;
+            --font-sans: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --chart-1: hsl(142 76% 36%);
+            --chart-2: hsl(162 73% 46%);
+            --chart-3: hsl(142 69% 25%);
+            --chart-4: hsl(120 40% 50%);
+            --chart-5: hsl(98 60% 45%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .glassmorphism {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .eco-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .mining-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+
+        .mining-glow {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .nav-active {
+            background: var(--primary);
+            color: var(--primary-foreground);
+        }
+
+        .hidden-section {
+            display: none;
+        }
+
+        .active-section {
+            display: block;
+        }
+
+        .stats-card {
+            transition: all 0.3s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.2);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+            animation: shimmer 2s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground">
+    <!-- @COMPONENT: Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glassmorphism border-b border-border">
+        <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 eco-gradient rounded-lg flex items-center justify-center">
+                    <i class="fas fa-leaf text-primary-foreground"></i>
+                </div>
+                <span class="text-xl font-bold">Bitnun</span>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <button class="nav-btn nav-active px-4 py-2 rounded-lg transition-all" data-section="home">Home</button>
+                <button class="nav-btn px-4 py-2 rounded-lg transition-all hover:bg-muted" data-section="dashboard">Dashboard</button>
+                <button class="nav-btn px-4 py-2 rounded-lg transition-all hover:bg-muted" data-section="nft-marketplace">NFT Marketplace</button>
+                <button class="nav-btn px-4 py-2 rounded-lg transition-all hover:bg-muted" data-section="wallet">Wallet</button>
+                <button class="nav-btn px-4 py-2 rounded-lg transition-all hover:bg-muted" data-section="gamification">Gamification</button>
+                <button class="nav-btn px-4 py-2 rounded-lg transition-all hover:bg-muted" data-section="developer">Developer</button>
+                <button class="nav-btn px-4 py-2 rounded-lg transition-all hover:bg-muted" data-section="roadmap">Roadmap</button>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <div class="hidden md:flex items-center space-x-2 bg-muted px-3 py-1 rounded-lg">
+                    <div class="w-2 h-2 bg-primary rounded-full mining-pulse"></div>
+                    <span class="text-sm" data-bind="user.miningStatus">Mining Active</span>
+                </div>
+                <button class="bg-primary text-primary-foreground px-6 py-2 rounded-lg font-medium hover:bg-secondary transition-all">
+                    Connect Wallet
+                </button>
+            </div>
+        </nav>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <!-- Mobile Menu Toggle -->
+    <div class="md:hidden fixed top-20 right-6 z-40">
+        <button id="mobile-menu-toggle" class="bg-card text-card-foreground p-3 rounded-lg glassmorphism">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <main class="pt-20">
+        <!-- @COMPONENT: HomePage [landing section] -->
+        <section id="home" class="page-section active-section">
+            <!-- Hero Section -->
+            <div class="relative min-h-screen flex items-center">
+                <!-- Sustainable forest canopy background -->
+                <div class="absolute inset-0 bg-gradient-to-br from-background via-muted to-card opacity-90"></div>
+                <!-- Floating particles effect overlay -->
+                <div class="absolute inset-0" style="background-image: radial-gradient(2px 2px at 20px 30px, rgba(16, 185, 129, 0.3), transparent), radial-gradient(2px 2px at 40px 70px, rgba(6, 182, 212, 0.2), transparent), radial-gradient(1px 1px at 90px 40px, rgba(34, 197, 94, 0.3), transparent);"></div>
+                
+                <div class="container mx-auto px-6 relative z-10">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-8">
+                            <div class="space-y-4">
+                                <h1 class="text-5xl lg:text-6xl font-bold leading-tight">
+                                    The Future of
+                                    <span class="eco-gradient bg-clip-text text-transparent">Sustainable</span>
+                                    Blockchain
+                                </h1>
+                                <p class="text-xl text-muted-foreground max-w-2xl">
+                                    Participate in the world's first browser-native, eco-friendly blockchain ecosystem. 
+                                    Earn BTN tokens through Action Mining while contributing to a carbon-negative future.
+                                </p>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <button class="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:bg-secondary transition-all transform hover:scale-105 mining-glow">
+                                    Start Mining Now
+                                </button>
+                                <button class="border border-border text-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:bg-muted transition-all">
+                                    Learn More
+                                </button>
+                            </div>
+
+                            <div class="flex items-center space-x-8 pt-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-primary" data-bind="stats.activeMiners">2.4M+</div>
+                                    <div class="text-sm text-muted-foreground">Active Miners</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-accent" data-bind="stats.carbonSaved">150K</div>
+                                    <div class="text-sm text-muted-foreground">CO2 Saved (tons)</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-secondary" data-bind="stats.transactionsToday">45.2K</div>
+                                    <div class="text-sm text-muted-foreground">Transactions Today</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <!-- Interactive blockchain visualization mockup -->
+                            <div class="relative bg-card rounded-2xl p-8 glassmorphism">
+                                <div class="space-y-6">
+                                    <div class="flex items-center justify-between">
+                                        <h3 class="text-lg font-semibold">Live Network Activity</h3>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="w-2 h-2 bg-primary rounded-full mining-pulse"></div>
+                                            <span class="text-sm text-muted-foreground">Real-time</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-3 gap-4">
+                                        <div class="bg-muted rounded-lg p-4 text-center">
+                                            <i class="fas fa-mouse-pointer text-primary text-xl mb-2"></i>
+                                            <div class="text-sm text-muted-foreground">Click Mining</div>
+                                            <div class="text-lg font-bold">+0.05 BTN</div>
+                                        </div>
+                                        <div class="bg-muted rounded-lg p-4 text-center">
+                                            <i class="fas fa-share-alt text-accent text-xl mb-2"></i>
+                                            <div class="text-sm text-muted-foreground">Social Shares</div>
+                                            <div class="text-lg font-bold">+0.25 BTN</div>
+                                        </div>
+                                        <div class="bg-muted rounded-lg p-4 text-center">
+                                            <i class="fas fa-tasks text-secondary text-xl mb-2"></i>
+                                            <div class="text-sm text-muted-foreground">Task Complete</div>
+                                            <div class="text-lg font-bold">+1.0 BTN</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <div class="flex items-center justify-between text-sm">
+                                            <span>Your Mining Progress</span>
+                                            <span class="text-primary font-medium">78%</span>
+                                        </div>
+                                        <div class="w-full bg-muted rounded-full h-2">
+                                            <div class="progress-bar h-2 rounded-full" style="width: 78%"></div>
+                                        </div>
+                                        <div class="text-xs text-muted-foreground">Next reward in 22 actions</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="py-20 bg-card">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-4xl font-bold mb-4">Revolutionary Features</h2>
+                        <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                            Experience the next generation of blockchain technology with zero setup, instant rewards, and sustainable practices.
+                        </p>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="bg-background rounded-xl p-6 stats-card border border-border">
+                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-seedling text-primary-foreground text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Action Mining</h3>
+                            <p class="text-muted-foreground">Every click, share, and interaction generates cryptographic proof and rewards you with BTN tokens instantly.</p>
+                        </div>
+
+                        <div class="bg-background rounded-xl p-6 stats-card border border-border">
+                            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-cube text-accent-foreground text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Browser-Native</h3>
+                            <p class="text-muted-foreground">No downloads, installations, or technical setup. Start mining and trading NFTs directly in your browser.</p>
+                        </div>
+
+                        <div class="bg-background rounded-xl p-6 stats-card border border-border">
+                            <div class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-leaf text-secondary-foreground text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Carbon Negative</h3>
+                            <p class="text-muted-foreground">Ultra-lightweight nodes powered by WASM and Rust ensure minimal energy consumption and maximum sustainability.</p>
+                        </div>
+
+                        <div class="bg-background rounded-xl p-6 stats-card border border-border">
+                            <div class="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-robot text-primary-foreground text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">AI-Powered</h3>
+                            <p class="text-muted-foreground">Smart consensus mechanism with fraud detection, predictive analytics, and adaptive reward optimization.</p>
+                        </div>
+
+                        <div class="bg-background rounded-xl p-6 stats-card border border-border">
+                            <div class="w-12 h-12 bg-accent rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-gamepad text-accent-foreground text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Gamified Experience</h3>
+                            <p class="text-muted-foreground">Earn achievements, climb leaderboards, and unlock exclusive NFT rewards through engaging challenges.</p>
+                        </div>
+
+                        <div class="bg-background rounded-xl p-6 stats-card border border-border">
+                            <div class="w-12 h-12 bg-secondary rounded-lg flex items-center justify-center mb-4">
+                                <i class="fas fa-code text-secondary-foreground text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-3">Developer Friendly</h3>
+                            <p class="text-muted-foreground">Modular architecture with comprehensive APIs, SDKs, and documentation for seamless integration.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: HomePage -->
+
+        <!-- @COMPONENT: Dashboard [user stats and mining interface] -->
+        <section id="dashboard" class="page-section hidden-section py-20">
+            <div class="container mx-auto px-6">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold mb-2">Mining Dashboard</h1>
+                    <p class="text-muted-foreground">Track your mining progress, rewards, and ecosystem participation</p>
+                </div>
+
+                <!-- Mining Stats Cards -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-card rounded-xl p-6 stats-card border border-border">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-coins text-primary-foreground"></i>
+                            </div>
+                            <span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">+12.5%</span>
+                        </div>
+                        <div class="text-2xl font-bold mb-1" data-bind="user.btnBalance">2,847.32</div>
+                        <div class="text-sm text-muted-foreground">BTN Balance</div>
+                    </div>
+
+                    <div class="bg-card rounded-xl p-6 stats-card border border-border">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 bg-accent rounded-lg flex items-center justify-center">
+                                <i class="fas fa-mouse-pointer text-accent-foreground"></i>
+                            </div>
+                            <span class="text-xs text-accent bg-accent/10 px-2 py-1 rounded-full">Today</span>
+                        </div>
+                        <div class="text-2xl font-bold mb-1" data-bind="user.actionsToday">1,247</div>
+                        <div class="text-sm text-muted-foreground">Actions Mined</div>
+                    </div>
+
+                    <div class="bg-card rounded-xl p-6 stats-card border border-border">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-trophy text-secondary-foreground"></i>
+                            </div>
+                            <span class="text-xs text-secondary bg-secondary/10 px-2 py-1 rounded-full">#47</span>
+                        </div>
+                        <div class="text-2xl font-bold mb-1" data-bind="user.rank">Top 50</div>
+                        <div class="text-sm text-muted-foreground">Global Rank</div>
+                    </div>
+
+                    <div class="bg-card rounded-xl p-6 stats-card border border-border">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                                <i class="fas fa-leaf text-primary-foreground"></i>
+                            </div>
+                            <span class="text-xs text-primary bg-primary/10 px-2 py-1 rounded-full">Saved</span>
+                        </div>
+                        <div class="text-2xl font-bold mb-1" data-bind="user.carbonSaved">23.7 kg</div>
+                        <div class="text-sm text-muted-foreground">CO2 Prevented</div>
+                    </div>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Mining Activity -->
+                    <div class="lg:col-span-2 bg-card rounded-xl p-6 border border-border">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-semibold">Mining Activity</h2>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-2 h-2 bg-primary rounded-full mining-pulse"></div>
+                                <span class="text-sm text-muted-foreground">Live</span>
+                            </div>
+                        </div>
+
+                        <!-- Action Mining Interface -->
+                        <div class="space-y-4 mb-6">
+                            <div class="bg-muted rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-medium">Current Mining Session</span>
+                                    <span class="text-sm text-primary">+15.3 BTN earned</span>
+                                </div>
+                                <div class="w-full bg-background rounded-full h-2 mb-2">
+                                    <div class="progress-bar h-2 rounded-full" style="width: 65%"></div>
+                                </div>
+                                <div class="text-xs text-muted-foreground">Session: 2h 34m • Next bonus in 26m</div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <button class="mining-action bg-primary/10 hover:bg-primary/20 border border-primary/30 rounded-lg p-4 text-center transition-all transform hover:scale-105" data-event="click:mineAction">
+                                    <i class="fas fa-mouse-pointer text-primary text-2xl mb-2"></i>
+                                    <div class="font-medium">Click Mine</div>
+                                    <div class="text-xs text-muted-foreground">+0.05 BTN per click</div>
+                                </button>
+                                <button class="mining-action bg-accent/10 hover:bg-accent/20 border border-accent/30 rounded-lg p-4 text-center transition-all transform hover:scale-105" data-event="click:shareAction">
+                                    <i class="fas fa-share-alt text-accent text-2xl mb-2"></i>
+                                    <div class="font-medium">Share & Earn</div>
+                                    <div class="text-xs text-muted-foreground">+0.25 BTN per share</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="space-y-3">
+                            <h3 class="font-medium text-muted-foreground text-sm">Recent Mining Actions</h3>
+                            <!-- @MAP: recentActions.map(action => ( -->
+                            <div class="flex items-center justify-between py-2 border-b border-border last:border-b-0">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-6 h-6 bg-primary/20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-mouse-pointer text-primary text-xs"></i>
+                                    </div>
+                                    <span class="text-sm" data-mock="true">Page interaction mining</span>
+                                </div>
+                                <div class="text-sm font-medium text-primary" data-mock="true">+0.05 BTN</div>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border last:border-b-0">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-6 h-6 bg-accent/20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-share-alt text-accent text-xs"></i>
+                                    </div>
+                                    <span class="text-sm" data-mock="true">Social share reward</span>
+                                </div>
+                                <div class="text-sm font-medium text-accent" data-mock="true">+0.25 BTN</div>
+                            </div>
+                            <div class="flex items-center justify-between py-2 border-b border-border last:border-b-0">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-6 h-6 bg-secondary/20 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-tasks text-secondary text-xs"></i>
+                                    </div>
+                                    <span class="text-sm" data-mock="true">Daily challenge completed</span>
+                                </div>
+                                <div class="text-sm font-medium text-secondary" data-mock="true">+1.0 BTN</div>
+                            </div>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+
+                    <!-- Side Panel -->
+                    <div class="space-y-6">
+                        <!-- Achievements -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Recent Achievements</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3 p-2 bg-primary/10 rounded-lg">
+                                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                                        <i class="fas fa-star text-primary-foreground text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium" data-mock="true">First Thousand</div>
+                                        <div class="text-xs text-muted-foreground" data-mock="true">1,000 actions mined</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3 p-2 bg-accent/10 rounded-lg">
+                                    <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-globe text-accent-foreground text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium" data-mock="true">Social Butterfly</div>
+                                        <div class="text-xs text-muted-foreground" data-mock="true">50 social shares</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+                            <div class="space-y-3">
+                                <button class="w-full bg-primary text-primary-foreground p-3 rounded-lg font-medium hover:bg-secondary transition-all">
+                                    <i class="fas fa-gift mr-2"></i>
+                                    Claim Daily Bonus
+                                </button>
+                                <button class="w-full bg-accent text-accent-foreground p-3 rounded-lg font-medium hover:bg-accent/80 transition-all">
+                                    <i class="fas fa-users mr-2"></i>
+                                    Invite Friends
+                                </button>
+                                <button class="w-full bg-secondary text-secondary-foreground p-3 rounded-lg font-medium hover:bg-secondary/80 transition-all">
+                                    <i class="fas fa-cog mr-2"></i>
+                                    Mining Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Dashboard -->
+
+        <!-- @COMPONENT: NFTMarketplace [marketplace interface] -->
+        <section id="nft-marketplace" class="page-section hidden-section py-20">
+            <div class="container mx-auto px-6">
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold mb-2">NFT Marketplace</h1>
+                        <p class="text-muted-foreground">Discover, mint, and trade sustainable NFTs with zero gas fees</p>
+                    </div>
+                    <button class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary transition-all">
+                        <i class="fas fa-plus mr-2"></i>
+                        Mint NFT
+                    </button>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="bg-card rounded-xl p-6 mb-8 border border-border">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="flex items-center space-x-2">
+                            <label class="text-sm font-medium">Category:</label>
+                            <select class="bg-input border border-border rounded-lg px-3 py-1 text-sm">
+                                <option>All Categories</option>
+                                <option>Art</option>
+                                <option>Collectibles</option>
+                                <option>Gaming</option>
+                                <option>Photography</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <label class="text-sm font-medium">Price:</label>
+                            <select class="bg-input border border-border rounded-lg px-3 py-1 text-sm">
+                                <option>All Prices</option>
+                                <option>0-10 BTN</option>
+                                <option>10-100 BTN</option>
+                                <option>100+ BTN</option>
+                            </select>
+                        </div>
+                        <button class="bg-accent text-accent-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-accent/80 transition-all">
+                            Apply Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- NFT Grid -->
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- @MAP: nftItems.map(nft => ( -->
+                    <div class="bg-card rounded-xl border border-border overflow-hidden stats-card">
+                        <!-- Digital art piece featuring sustainable energy themes -->
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" alt="Sustainable Energy Digital Art" class="w-full h-48 object-cover" data-mock-image="true" />
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2" data-mock="true">Green Future #001</h3>
+                            <p class="text-sm text-muted-foreground mb-3" data-mock="true">Sustainable energy visualization</p>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Price:</span>
+                                    <span class="font-medium text-primary ml-1" data-mock="true">25.5 BTN</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Rank:</span>
+                                    <span class="font-medium" data-mock="true">#142</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 mb-3">
+                                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold text-primary-foreground" data-mock="true">A</span>
+                                </div>
+                                <span class="text-sm text-muted-foreground" data-mock="true">by @eco_artist</span>
+                            </div>
+                            <button class="w-full bg-primary text-primary-foreground py-2 rounded-lg font-medium hover:bg-secondary transition-all">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-card rounded-xl border border-border overflow-hidden stats-card">
+                        <!-- Abstract renewable energy concept art -->
+                        <img src="https://images.unsplash.com/photo-1473081556163-2a17de81fc97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" alt="Renewable Energy Abstract Art" class="w-full h-48 object-cover" data-mock-image="true" />
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2" data-mock="true">Wind Symphony #007</h3>
+                            <p class="text-sm text-muted-foreground mb-3" data-mock="true">Wind energy abstract composition</p>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Price:</span>
+                                    <span class="font-medium text-primary ml-1" data-mock="true">45.0 BTN</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Rank:</span>
+                                    <span class="font-medium" data-mock="true">#89</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 mb-3">
+                                <div class="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold text-accent-foreground" data-mock="true">W</span>
+                                </div>
+                                <span class="text-sm text-muted-foreground" data-mock="true">by @wind_creator</span>
+                            </div>
+                            <button class="w-full bg-primary text-primary-foreground py-2 rounded-lg font-medium hover:bg-secondary transition-all">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-card rounded-xl border border-border overflow-hidden stats-card">
+                        <!-- Nature-inspired digital artwork -->
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" alt="Forest Digital Art" class="w-full h-48 object-cover" data-mock-image="true" />
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2" data-mock="true">Forest Guardian #024</h3>
+                            <p class="text-sm text-muted-foreground mb-3" data-mock="true">Nature preservation art</p>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Price:</span>
+                                    <span class="font-medium text-primary ml-1" data-mock="true">12.8 BTN</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Rank:</span>
+                                    <span class="font-medium" data-mock="true">#256</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 mb-3">
+                                <div class="w-6 h-6 bg-secondary rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold text-secondary-foreground" data-mock="true">N</span>
+                                </div>
+                                <span class="text-sm text-muted-foreground" data-mock="true">by @nature_guard</span>
+                            </div>
+                            <button class="w-full bg-primary text-primary-foreground py-2 rounded-lg font-medium hover:bg-secondary transition-all">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-card rounded-xl border border-border overflow-hidden stats-card">
+                        <!-- Solar energy themed digital art -->
+                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=300" alt="Solar Energy Art" class="w-full h-48 object-cover" data-mock-image="true" />
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2" data-mock="true">Solar Dreams #055</h3>
+                            <p class="text-sm text-muted-foreground mb-3" data-mock="true">Solar power artistic vision</p>
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Price:</span>
+                                    <span class="font-medium text-primary ml-1" data-mock="true">33.2 BTN</span>
+                                </div>
+                                <div class="text-sm">
+                                    <span class="text-muted-foreground">Rank:</span>
+                                    <span class="font-medium" data-mock="true">#98</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2 mb-3">
+                                <div class="w-6 h-6 bg-accent rounded-full flex items-center justify-center">
+                                    <span class="text-xs font-bold text-accent-foreground" data-mock="true">S</span>
+                                </div>
+                                <span class="text-sm text-muted-foreground" data-mock="true">by @solar_visionary</span>
+                            </div>
+                            <button class="w-full bg-primary text-primary-foreground py-2 rounded-lg font-medium hover:bg-secondary transition-all">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: NFTMarketplace -->
+
+        <!-- @COMPONENT: Wallet [token management interface] -->
+        <section id="wallet" class="page-section hidden-section py-20">
+            <div class="container mx-auto px-6">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold mb-2">BTN Wallet</h1>
+                    <p class="text-muted-foreground">Manage your BTN tokens and transaction history</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Wallet Overview -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Balance Card -->
+                        <div class="bg-card rounded-xl p-8 border border-border mining-glow">
+                            <div class="text-center space-y-4">
+                                <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto">
+                                    <i class="fas fa-wallet text-primary-foreground text-2xl"></i>
+                                </div>
+                                <div>
+                                    <div class="text-4xl font-bold mb-2" data-bind="user.totalBalance">2,847.32 BTN</div>
+                                    <div class="text-muted-foreground">Total Balance</div>
+                                </div>
+                                <div class="text-primary text-lg font-medium" data-bind="user.usdValue">≈ $1,423.66 USD</div>
+                            </div>
+                        </div>
+
+                        <!-- Transaction History -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-xl font-semibold">Transaction History</h2>
+                                <button class="text-primary hover:text-secondary transition-colors">
+                                    <i class="fas fa-download mr-1"></i>
+                                    Export
+                                </button>
+                            </div>
+
+                            <div class="space-y-4">
+                                <!-- @MAP: transactions.map(tx => ( -->
+                                <div class="flex items-center justify-between p-4 bg-muted rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-arrow-down text-primary"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium" data-mock="true">Action Mining Reward</div>
+                                            <div class="text-sm text-muted-foreground" data-mock="true">Today at 2:34 PM</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-medium text-primary" data-mock="true">+15.25 BTN</div>
+                                        <div class="text-xs text-muted-foreground" data-mock="true">Mining</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 bg-muted rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-shopping-cart text-accent"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium" data-mock="true">NFT Purchase</div>
+                                            <div class="text-sm text-muted-foreground" data-mock="true">Yesterday at 4:12 PM</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-medium text-destructive" data-mock="true">-45.0 BTN</div>
+                                        <div class="text-xs text-muted-foreground" data-mock="true">Purchase</div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-4 bg-muted rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-secondary/20 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-gift text-secondary"></i>
+                                        </div>
+                                        <div>
+                                            <div class="font-medium" data-mock="true">Daily Bonus</div>
+                                            <div class="text-sm text-muted-foreground" data-mock="true">Yesterday at 12:00 AM</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-medium text-secondary" data-mock="true">+10.0 BTN</div>
+                                        <div class="text-xs text-muted-foreground" data-mock="true">Bonus</div>
+                                    </div>
+                                </div>
+                                <!-- @END_MAP )) -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wallet Actions -->
+                    <div class="space-y-6">
+                        <!-- Quick Actions -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+                            <div class="space-y-3">
+                                <button class="w-full bg-primary text-primary-foreground p-3 rounded-lg font-medium hover:bg-secondary transition-all">
+                                    <i class="fas fa-arrow-up mr-2"></i>
+                                    Send BTN
+                                </button>
+                                <button class="w-full bg-accent text-accent-foreground p-3 rounded-lg font-medium hover:bg-accent/80 transition-all">
+                                    <i class="fas fa-arrow-down mr-2"></i>
+                                    Receive BTN
+                                </button>
+                                <button class="w-full bg-secondary text-secondary-foreground p-3 rounded-lg font-medium hover:bg-secondary/80 transition-all">
+                                    <i class="fas fa-exchange-alt mr-2"></i>
+                                    Swap Tokens
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Staking Rewards -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Staking Rewards</h3>
+                            <div class="space-y-4">
+                                <div class="bg-muted rounded-lg p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-medium">Staked Amount</span>
+                                        <span class="text-sm text-primary" data-bind="user.stakedAmount">500.0 BTN</span>
+                                    </div>
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-sm font-medium">APY</span>
+                                        <span class="text-sm text-accent" data-bind="staking.apy">12.5%</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium">Earned</span>
+                                        <span class="text-sm text-secondary" data-bind="user.stakingRewards">+6.25 BTN</span>
+                                    </div>
+                                </div>
+                                <button class="w-full bg-primary text-primary-foreground py-2 rounded-lg font-medium hover:bg-secondary transition-all">
+                                    Claim Rewards
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Wallet Settings -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Wallet Settings</h3>
+                            <div class="space-y-3">
+                                <button class="w-full flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-input transition-all">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-shield-alt mr-3 text-primary"></i>
+                                        Security
+                                    </span>
+                                    <i class="fas fa-chevron-right text-muted-foreground"></i>
+                                </button>
+                                <button class="w-full flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-input transition-all">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-bell mr-3 text-accent"></i>
+                                        Notifications
+                                    </span>
+                                    <i class="fas fa-chevron-right text-muted-foreground"></i>
+                                </button>
+                                <button class="w-full flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-input transition-all">
+                                    <span class="flex items-center">
+                                        <i class="fas fa-download mr-3 text-secondary"></i>
+                                        Backup Wallet
+                                    </span>
+                                    <i class="fas fa-chevron-right text-muted-foreground"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Wallet -->
+
+        <!-- @COMPONENT: Gamification [leaderboards and achievements] -->
+        <section id="gamification" class="page-section hidden-section py-20">
+            <div class="container mx-auto px-6">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold mb-2">Gamification Hub</h1>
+                    <p class="text-muted-foreground">Compete, achieve, and earn rewards in the Bitnun ecosystem</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <!-- Leaderboards -->
+                    <div class="lg:col-span-2 bg-card rounded-xl p-6 border border-border">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-xl font-semibold">Global Leaderboard</h2>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 bg-primary text-primary-foreground rounded-lg text-sm">Daily</button>
+                                <button class="px-3 py-1 bg-muted text-muted-foreground rounded-lg text-sm hover:bg-input">Weekly</button>
+                                <button class="px-3 py-1 bg-muted text-muted-foreground rounded-lg text-sm hover:bg-input">All Time</button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <!-- @MAP: leaderboard.map((user, index) => ( -->
+                            <div class="flex items-center justify-between p-4 bg-muted rounded-lg hover:bg-input transition-all">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center justify-center w-8 h-8 bg-primary rounded-full font-bold text-primary-foreground">
+                                        <span data-mock="true">1</span>
+                                    </div>
+                                    <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                                        <span class="font-bold text-accent-foreground" data-mock="true">E</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium" data-mock="true">EcoMiner_Pro</div>
+                                        <div class="text-sm text-muted-foreground" data-mock="true">Level 24 • Mining Specialist</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-primary" data-mock="true">15,847 BTN</div>
+                                    <div class="text-sm text-muted-foreground" data-mock="true">24h earnings</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-muted rounded-lg hover:bg-input transition-all">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center justify-center w-8 h-8 bg-secondary rounded-full font-bold text-secondary-foreground">
+                                        <span data-mock="true">2</span>
+                                    </div>
+                                    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                                        <span class="font-bold text-primary-foreground" data-mock="true">G</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium" data-mock="true">GreenMachine</div>
+                                        <div class="text-sm text-muted-foreground" data-mock="true">Level 22 • Sustainability Champion</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-secondary" data-mock="true">14,239 BTN</div>
+                                    <div class="text-sm text-muted-foreground" data-mock="true">24h earnings</div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between p-4 bg-primary/10 rounded-lg border border-primary">
+                                <div class="flex items-center space-x-4">
+                                    <div class="flex items-center justify-center w-8 h-8 bg-accent rounded-full font-bold text-accent-foreground">
+                                        <span data-mock="true">47</span>
+                                    </div>
+                                    <div class="w-10 h-10 bg-secondary rounded-full flex items-center justify-center">
+                                        <span class="font-bold text-secondary-foreground" data-mock="true">Y</span>
+                                    </div>
+                                    <div>
+                                        <div class="font-medium">You</div>
+                                        <div class="text-sm text-muted-foreground">Level 8 • Rising Miner</div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="font-bold text-primary">2,847 BTN</div>
+                                    <div class="text-sm text-muted-foreground">24h earnings</div>
+                                </div>
+                            </div>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+
+                    <!-- Achievements & Challenges -->
+                    <div class="space-y-6">
+                        <!-- Current Level -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Your Progress</h3>
+                            <div class="text-center space-y-4">
+                                <div class="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto">
+                                    <span class="text-2xl font-bold text-accent-foreground" data-bind="user.level">8</span>
+                                </div>
+                                <div>
+                                    <div class="font-semibold" data-bind="user.title">Rising Miner</div>
+                                    <div class="text-sm text-muted-foreground">Level 8</div>
+                                </div>
+                                <div class="w-full bg-muted rounded-full h-2">
+                                    <div class="progress-bar h-2 rounded-full" style="width: 73%"></div>
+                                </div>
+                                <div class="text-xs text-muted-foreground">2,847 / 3,900 XP to next level</div>
+                            </div>
+                        </div>
+
+                        <!-- Achievements -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Latest Achievements</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3 p-2 bg-primary/10 rounded-lg">
+                                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                                        <i class="fas fa-star text-primary-foreground text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium" data-mock="true">Consistency Master</div>
+                                        <div class="text-xs text-muted-foreground" data-mock="true">7 days streak</div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3 p-2 bg-accent/10 rounded-lg">
+                                    <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
+                                        <i class="fas fa-users text-accent-foreground text-sm"></i>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm font-medium" data-mock="true">Community Builder</div>
+                                        <div class="text-xs text-muted-foreground" data-mock="true">5 referrals</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Daily Challenges -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Daily Challenges</h3>
+                            <div class="space-y-4">
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium" data-mock="true">Complete 100 actions</span>
+                                        <span class="text-xs text-primary" data-mock="true">73/100</span>
+                                    </div>
+                                    <div class="w-full bg-muted rounded-full h-1.5">
+                                        <div class="bg-primary h-1.5 rounded-full" style="width: 73%"></div>
+                                    </div>
+                                    <div class="text-xs text-muted-foreground">Reward: +5 BTN</div>
+                                </div>
+
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm font-medium" data-mock="true">Share 3 posts</span>
+                                        <span class="text-xs text-accent" data-mock="true">2/3</span>
+                                    </div>
+                                    <div class="w-full bg-muted rounded-full h-1.5">
+                                        <div class="bg-accent h-1.5 rounded-full" style="width: 67%"></div>
+                                    </div>
+                                    <div class="text-xs text-muted-foreground">Reward: +10 BTN</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Gamification -->
+
+        <!-- @COMPONENT: DeveloperPortal [API docs and tools] -->
+        <section id="developer" class="page-section hidden-section py-20">
+            <div class="container mx-auto px-6">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold mb-2">Developer Portal</h1>
+                    <p class="text-muted-foreground">Build on Bitnun with our comprehensive APIs and development tools</p>
+                </div>
+
+                <div class="grid lg:grid-cols-4 gap-8">
+                    <!-- API Documentation -->
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h2 class="text-xl font-semibold mb-4">Quick Start Guide</h2>
+                            <div class="space-y-4">
+                                <div class="bg-muted rounded-lg p-4">
+                                    <h3 class="font-medium mb-2">1. Initialize Bitnun SDK</h3>
+                                    <div class="bg-background rounded-lg p-3 font-mono text-sm overflow-x-auto">
+                                        <code class="text-primary">
+npm install @bitnun/sdk<br/>
+import { BitnunClient } from '@bitnun/sdk'<br/>
+const client = new BitnunClient({ apiKey: 'your_key' })
+                                        </code>
+                                    </div>
+                                </div>
+
+                                <div class="bg-muted rounded-lg p-4">
+                                    <h3 class="font-medium mb-2">2. Start Action Mining</h3>
+                                    <div class="bg-background rounded-lg p-3 font-mono text-sm overflow-x-auto">
+                                        <code class="text-accent">
+client.startMining({<br/>
+&nbsp;&nbsp;actions: ['click', 'scroll', 'share'],<br/>
+&nbsp;&nbsp;rewardRate: 'adaptive'<br/>
+})
+                                        </code>
+                                    </div>
+                                </div>
+
+                                <div class="bg-muted rounded-lg p-4">
+                                    <h3 class="font-medium mb-2">3. Mint NFT</h3>
+                                    <div class="bg-background rounded-lg p-3 font-mono text-sm overflow-x-auto">
+                                        <code class="text-secondary">
+const nft = await client.mintNFT({<br/>
+&nbsp;&nbsp;metadata: { name: 'Eco Art', image: url },<br/>
+&nbsp;&nbsp;carbonOffset: true<br/>
+})
+                                        </code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- API Endpoints -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h2 class="text-xl font-semibold mb-4">API Endpoints</h2>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between p-3 bg-muted rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="px-2 py-1 bg-primary text-primary-foreground rounded text-xs font-mono">GET</span>
+                                        <span class="font-mono text-sm">/api/v1/mining/stats</span>
+                                    </div>
+                                    <span class="text-sm text-muted-foreground">Get mining statistics</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-muted rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="px-2 py-1 bg-accent text-accent-foreground rounded text-xs font-mono">POST</span>
+                                        <span class="font-mono text-sm">/api/v1/nft/mint</span>
+                                    </div>
+                                    <span class="text-sm text-muted-foreground">Mint new NFT</span>
+                                </div>
+                                <div class="flex items-center justify-between p-3 bg-muted rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="px-2 py-1 bg-secondary text-secondary-foreground rounded text-xs font-mono">GET</span>
+                                        <span class="font-mono text-sm">/api/v1/wallet/balance</span>
+                                    </div>
+                                    <span class="text-sm text-muted-foreground">Check BTN balance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Developer Tools -->
+                    <div class="space-y-6">
+                        <!-- SDK Downloads -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">SDKs & Tools</h3>
+                            <div class="space-y-3">
+                                <button class="w-full flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-input transition-all">
+                                    <span class="flex items-center">
+                                        <i class="fab fa-js-square mr-3 text-primary"></i>
+                                        JavaScript SDK
+                                    </span>
+                                    <i class="fas fa-download text-muted-foreground"></i>
+                                </button>
+                                <button class="w-full flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-input transition-all">
+                                    <span class="flex items-center">
+                                        <i class="fab fa-rust mr-3 text-accent"></i>
+                                        Rust SDK
+                                    </span>
+                                    <i class="fas fa-download text-muted-foreground"></i>
+                                </button>
+                                <button class="w-full flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-input transition-all">
+                                    <span class="flex items-center">
+                                        <i class="fab fa-python mr-3 text-secondary"></i>
+                                        Python SDK
+                                    </span>
+                                    <i class="fas fa-download text-muted-foreground"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Developer Stats -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Developer Stats</h3>
+                            <div class="space-y-4">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-primary" data-bind="dev.apps">1,247</div>
+                                    <div class="text-sm text-muted-foreground">Apps Built</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-accent" data-bind="dev.apiCalls">2.4M</div>
+                                    <div class="text-sm text-muted-foreground">API Calls/Day</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-secondary" data-bind="dev.developers">5,623</div>
+                                    <div class="text-sm text-muted-foreground">Active Developers</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Support -->
+                        <div class="bg-card rounded-xl p-6 border border-border">
+                            <h3 class="text-lg font-semibold mb-4">Get Support</h3>
+                            <div class="space-y-3">
+                                <button class="w-full bg-primary text-primary-foreground p-3 rounded-lg font-medium hover:bg-secondary transition-all">
+                                    <i class="fas fa-book mr-2"></i>
+                                    Documentation
+                                </button>
+                                <button class="w-full bg-accent text-accent-foreground p-3 rounded-lg font-medium hover:bg-accent/80 transition-all">
+                                    <i class="fab fa-discord mr-2"></i>
+                                    Discord Community
+                                </button>
+                                <button class="w-full bg-secondary text-secondary-foreground p-3 rounded-lg font-medium hover:bg-secondary/80 transition-all">
+                                    <i class="fas fa-headset mr-2"></i>
+                                    Support Ticket
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: DeveloperPortal -->
+
+        <!-- @COMPONENT: Roadmap [development timeline] -->
+        <section id="roadmap" class="page-section hidden-section py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h1 class="text-3xl font-bold mb-4">Development Roadmap</h1>
+                    <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                        Our journey to revolutionize blockchain technology with sustainability and accessibility at its core
+                    </p>
+                </div>
+
+                <div class="relative">
+                    <!-- Timeline Line -->
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-1 bg-border h-full hidden md:block"></div>
+
+                    <div class="space-y-12">
+                        <!-- Phase 1 - Completed -->
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-8 mb-4 md:mb-0">
+                                <div class="bg-card rounded-xl p-6 border border-border ml-auto md:max-w-md">
+                                    <div class="flex items-center space-x-2 mb-3">
+                                        <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                                            <i class="fas fa-check text-primary-foreground text-sm"></i>
+                                        </div>
+                                        <span class="text-sm text-primary font-medium">COMPLETED</span>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2">Phase 1: MVP Launch</h3>
+                                    <p class="text-muted-foreground mb-4">Core platform infrastructure with browser-native mining capabilities</p>
+                                    <ul class="text-sm space-y-1 text-muted-foreground">
+                                        <li>✓ Action Mining implementation</li>
+                                        <li>✓ Basic wallet functionality</li>
+                                        <li>✓ WASM node deployment</li>
+                                        <li>✓ Initial BTN tokenomics</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex w-12 h-12 bg-primary rounded-full items-center justify-center relative z-10">
+                                <span class="text-primary-foreground font-bold">1</span>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="text-center md:text-left">
+                                    <div class="text-sm text-muted-foreground">Q1 2024</div>
+                                    <div class="text-lg font-semibold text-primary">Launch Complete</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2 - In Progress -->
+                        <div class="flex flex-col md:flex-row-reverse items-center">
+                            <div class="md:w-1/2 md:pl-8 mb-4 md:mb-0">
+                                <div class="bg-card rounded-xl p-6 border border-border mr-auto md:max-w-md">
+                                    <div class="flex items-center space-x-2 mb-3">
+                                        <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center mining-pulse">
+                                            <i class="fas fa-cog text-accent-foreground text-sm"></i>
+                                        </div>
+                                        <span class="text-sm text-accent font-medium">IN PROGRESS</span>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2">Phase 2: NFT & Gamification</h3>
+                                    <p class="text-muted-foreground mb-4">Enhanced marketplace with gamified user experience</p>
+                                    <ul class="text-sm space-y-1 text-muted-foreground">
+                                        <li>🔄 Advanced NFT marketplace</li>
+                                        <li>🔄 Achievement system</li>
+                                        <li>✓ Leaderboards & rankings</li>
+                                        <li>⏳ Creator monetization tools</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex w-12 h-12 bg-accent rounded-full items-center justify-center relative z-10 mining-pulse">
+                                <span class="text-accent-foreground font-bold">2</span>
+                            </div>
+                            <div class="md:w-1/2 md:pr-8">
+                                <div class="text-center md:text-right">
+                                    <div class="text-sm text-muted-foreground">Q2 2024</div>
+                                    <div class="text-lg font-semibold text-accent">75% Complete</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 3 - Upcoming -->
+                        <div class="flex flex-col md:flex-row items-center">
+                            <div class="md:w-1/2 md:pr-8 mb-4 md:mb-0">
+                                <div class="bg-card rounded-xl p-6 border border-border ml-auto md:max-w-md">
+                                    <div class="flex items-center space-x-2 mb-3">
+                                        <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
+                                            <i class="fas fa-clock text-secondary-foreground text-sm"></i>
+                                        </div>
+                                        <span class="text-sm text-secondary font-medium">UPCOMING</span>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2">Phase 3: AI Integration</h3>
+                                    <p class="text-muted-foreground mb-4">Advanced AI consensus and fraud detection systems</p>
+                                    <ul class="text-sm space-y-1 text-muted-foreground">
+                                        <li>⏳ Proof-of-Action consensus</li>
+                                        <li>⏳ AI fraud detection</li>
+                                        <li>⏳ Predictive analytics</li>
+                                        <li>⏳ Adaptive reward optimization</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex w-12 h-12 bg-secondary rounded-full items-center justify-center relative z-10">
+                                <span class="text-secondary-foreground font-bold">3</span>
+                            </div>
+                            <div class="md:w-1/2 md:pl-8">
+                                <div class="text-center md:text-left">
+                                    <div class="text-sm text-muted-foreground">Q3 2024</div>
+                                    <div class="text-lg font-semibold text-secondary">Planning</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 4 - Future -->
+                        <div class="flex flex-col md:flex-row-reverse items-center">
+                            <div class="md:w-1/2 md:pl-8 mb-4 md:mb-0">
+                                <div class="bg-card rounded-xl p-6 border border-border mr-auto md:max-w-md">
+                                    <div class="flex items-center space-x-2 mb-3">
+                                        <div class="w-8 h-8 bg-muted rounded-full flex items-center justify-center">
+                                            <i class="fas fa-eye text-muted-foreground text-sm"></i>
+                                        </div>
+                                        <span class="text-sm text-muted-foreground font-medium">FUTURE</span>
+                                    </div>
+                                    <h3 class="text-xl font-semibold mb-2">Phase 4: AR/VR Expansion</h3>
+                                    <p class="text-muted-foreground mb-4">Immersive metaverse integration and virtual reality experiences</p>
+                                    <ul class="text-sm space-y-1 text-muted-foreground">
+                                        <li>⭐ AR/VR compatibility</li>
+                                        <li>⭐ Metaverse integration</li>
+                                        <li>⭐ 3D virtual environments</li>
+                                        <li>⭐ Cross-reality mining</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="hidden md:flex w-12 h-12 bg-muted rounded-full items-center justify-center relative z-10">
+                                <span class="text-muted-foreground font-bold">4</span>
+                            </div>
+                            <div class="md:w-1/2 md:pr-8">
+                                <div class="text-center md:text-right">
+                                    <div class="text-sm text-muted-foreground">Q4 2024</div>
+                                    <div class="text-lg font-semibold text-muted-foreground">Vision</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: Roadmap -->
+
+        <!-- @COMPONENT: FAQ [support and information] -->
+        <section id="faq" class="page-section hidden-section py-20">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h1 class="text-3xl font-bold mb-4">Frequently Asked Questions</h1>
+                    <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+                        Everything you need to know about the Bitnun ecosystem
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto space-y-4">
+                    <!-- @MAP: faqs.map(faq => ( -->
+                    <div class="bg-card rounded-xl border border-border overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between hover:bg-muted transition-all" data-event="click:toggleFAQ">
+                            <span class="font-semibold" data-mock="true">What is Action Mining and how does it work?</span>
+                            <i class="fas fa-chevron-down text-muted-foreground transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-6">
+                            <p class="text-muted-foreground" data-mock="true">
+                                Action Mining is Bitnun's innovative consensus mechanism that rewards users for legitimate interactions 
+                                with the platform. Every click, page visit, form submission, and social share generates cryptographic 
+                                proof of activity, which is validated by our AI-powered system and rewarded with BTN tokens. This creates 
+                                a sustainable, engaging ecosystem where user participation directly contributes to network security.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card rounded-xl border border-border overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between hover:bg-muted transition-all" data-event="click:toggleFAQ">
+                            <span class="font-semibold" data-mock="true">How is Bitnun environmentally sustainable?</span>
+                            <i class="fas fa-chevron-down text-muted-foreground transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-6">
+                            <p class="text-muted-foreground" data-mock="true">
+                                Bitnun operates as a carbon-negative blockchain through ultra-lightweight browser-based nodes 
+                                powered by WASM and Rust. Our Action Mining consensus requires minimal computational power compared 
+                                to traditional proof-of-work systems, reducing energy consumption by over 99%. Additionally, we 
+                                partner with environmental organizations to offset carbon footprints and contribute to reforestation projects.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card rounded-xl border border-border overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between hover:bg-muted transition-all" data-event="click:toggleFAQ">
+                            <span class="font-semibold" data-mock="true">Do I need to download any software to participate?</span>
+                            <i class="fas fa-chevron-down text-muted-foreground transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-6">
+                            <p class="text-muted-foreground" data-mock="true">
+                                No downloads, installations, or technical setup required! Bitnun runs entirely in your web browser 
+                                using cutting-edge WebAssembly technology. Simply visit our platform, connect your wallet 
+                                (or create one instantly), and start mining BTN tokens immediately. The platform is compatible 
+                                with all modern browsers and works seamlessly across desktop, mobile, and tablet devices.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card rounded-xl border border-border overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between hover:bg-muted transition-all" data-event="click:toggleFAQ">
+                            <span class="font-semibold" data-mock="true">What are BTN tokens used for?</span>
+                            <i class="fas fa-chevron-down text-muted-foreground transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-6">
+                            <p class="text-muted-foreground" data-mock="true">
+                                BTN tokens serve multiple purposes within the ecosystem: transaction fees for smart contracts and NFT trades, 
+                                governance voting rights for platform decisions, staking for additional rewards, access to premium features 
+                                and exclusive content, NFT minting and marketplace transactions, and developer API access credits. 
+                                The 50/50 user-network reward split ensures fair distribution and sustainable growth.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card rounded-xl border border-border overflow-hidden">
+                        <button class="faq-toggle w-full p-6 text-left flex items-center justify-between hover:bg-muted transition-all" data-event="click:toggleFAQ">
+                            <span class="font-semibold" data-mock="true">How does the AI prevent fraud and bot activity?</span>
+                            <i class="fas fa-chevron-down text-muted-foreground transition-transform"></i>
+                        </button>
+                        <div class="faq-content hidden px-6 pb-6">
+                            <p class="text-muted-foreground" data-mock="true">
+                                Our AI system analyzes behavioral patterns, interaction timing, device fingerprinting, and network analysis 
+                                to detect fraudulent activity. Machine learning models continuously adapt to new attack vectors while 
+                                legitimate users enjoy seamless mining experiences. The system rewards natural, human-like interaction 
+                                patterns while automatically filtering out bot activity and click farms.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+
+                <!-- Contact Support -->
+                <div class="text-center mt-12">
+                    <div class="bg-card rounded-xl p-8 border border-border inline-block">
+                        <h3 class="text-xl font-semibold mb-4">Still have questions?</h3>
+                        <p class="text-muted-foreground mb-6">Our support team is here to help you get started</p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-secondary transition-all">
+                                <i class="fas fa-comments mr-2"></i>
+                                Contact Support
+                            </button>
+                            <button class="bg-accent text-accent-foreground px-6 py-3 rounded-lg font-medium hover:bg-accent/80 transition-all">
+                                <i class="fab fa-discord mr-2"></i>
+                                Join Discord
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- @END_COMPONENT: FAQ -->
+    </main>
+
+    <!-- @COMPONENT: Footer -->
+    <footer class="bg-card border-t border-border py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 eco-gradient rounded-lg flex items-center justify-center">
+                            <i class="fas fa-leaf text-primary-foreground"></i>
+                        </div>
+                        <span class="text-xl font-bold">Bitnun</span>
+                    </div>
+                    <p class="text-muted-foreground">
+                        Building the future of sustainable blockchain technology, one action at a time.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-muted-foreground hover:text-primary transition-colors">
+                            <i class="fab fa-medium"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold mb-4">Platform</h3>
+                    <ul class="space-y-2 text-muted-foreground">
+                        <li><a href="#" class="hover:text-primary transition-colors">Dashboard</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">NFT Marketplace</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Wallet</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Staking</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold mb-4">Developers</h3>
+                    <ul class="space-y-2 text-muted-foreground">
+                        <li><a href="#" class="hover:text-primary transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">API Reference</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">SDKs</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-muted-foreground">
+                        <li><a href="#" class="hover:text-primary transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Community</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Bug Bounty</a></li>
+                        <li><a href="#" class="hover:text-primary transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-border pt-8 mt-8 flex flex-col md:flex-row items-center justify-between">
+                <p class="text-muted-foreground text-sm">
+                    © 2024 Bitnun. All rights reserved. Carbon-negative blockchain platform.
+                </p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="text-muted-foreground hover:text-primary transition-colors text-sm">Privacy Policy</a>
+                    <a href="#" class="text-muted-foreground hover:text-primary transition-colors text-sm">Terms of Service</a>
+                    <a href="#" class="text-muted-foreground hover:text-primary transition-colors text-sm">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <!-- Mining Action Counter (Floating) -->
+    <div id="mining-counter" class="fixed bottom-6 right-6 bg-primary text-primary-foreground px-4 py-2 rounded-full shadow-lg z-50 mining-glow">
+        <div class="flex items-center space-x-2">
+            <div class="w-2 h-2 bg-primary-foreground rounded-full mining-pulse"></div>
+            <span class="text-sm font-medium">Actions: <span id="action-count">0</span></span>
+        </div>
+    </div>
+
+    <script>
+        // TODO: Implement real blockchain integration, wallet connectivity, and token transactions
+        (function() {
+            // Navigation functionality
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const sections = document.querySelectorAll('.page-section');
+            
+            function showSection(sectionId) {
+                sections.forEach(section => {
+                    section.classList.remove('active-section');
+                    section.classList.add('hidden-section');
+                });
+                
+                const targetSection = document.getElementById(sectionId);
+                if (targetSection) {
+                    targetSection.classList.remove('hidden-section');
+                    targetSection.classList.add('active-section');
+                }
+                
+                navButtons.forEach(btn => {
+                    btn.classList.remove('nav-active');
+                    if (btn.dataset.section === sectionId) {
+                        btn.classList.add('nav-active');
+                    }
+                });
+            }
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    showSection(button.dataset.section);
+                });
+            });
+
+            // Action Mining Simulation
+            let actionCount = 0;
+            const actionCountElement = document.getElementById('action-count');
+            
+            function incrementActionCount() {
+                actionCount++;
+                actionCountElement.textContent = actionCount;
+                
+                // Simulate BTN reward (in real implementation, this would be blockchain transaction)
+                if (actionCount % 20 === 0) {
+                    showMiningReward();
+                }
+            }
+            
+            function showMiningReward() {
+                const reward = document.createElement('div');
+                reward.className = 'fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground px-6 py-3 rounded-lg shadow-lg z-50 mining-glow';
+                reward.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-star"></i>
+                        <span class="font-bold">+1.0 BTN Reward!</span>
+                    </div>
+                `;
+                document.body.appendChild(reward);
+                
+                setTimeout(() => {
+                    reward.remove();
+                }, 2000);
+            }
+            
+            // Track all user interactions for Action Mining
+            document.addEventListener('click', incrementActionCount);
+            document.addEventListener('scroll', () => {
+                clearTimeout(window.scrollTimeout);
+                window.scrollTimeout = setTimeout(incrementActionCount, 500);
+            });
+
+            // FAQ Toggle functionality
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.faq-toggle')) {
+                    const toggle = e.target.closest('.faq-toggle');
+                    const content = toggle.nextElementSibling;
+                    const icon = toggle.querySelector('i');
+                    
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                }
+            });
+
+            // Mining action buttons
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('.mining-action')) {
+                    e.target.closest('.mining-action').style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        e.target.closest('.mining-action').style.transform = 'scale(1)';
+                    }, 100);
+                    
+                    // Show mini reward
+                    const miniReward = document.createElement('div');
+                    miniReward.className = 'fixed text-primary font-bold pointer-events-none z-50';
+                    miniReward.textContent = '+0.05 BTN';
+                    miniReward.style.left = e.clientX + 'px';
+                    miniReward.style.top = e.clientY + 'px';
+                    document.body.appendChild(miniReward);
+                    
+                    setTimeout(() => {
+                        miniReward.remove();
+                    }, 1000);
+                }
+            });
+
+            // Mobile menu toggle
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            mobileMenuToggle?.addEventListener('click', () => {
+                // TODO: Implement mobile menu functionality
+                console.log('Mobile menu toggle clicked');
+            });
+
+            // Initialize with home section
+            showSection('home');
+        })();
+    </script>
+</body>
+</html>
