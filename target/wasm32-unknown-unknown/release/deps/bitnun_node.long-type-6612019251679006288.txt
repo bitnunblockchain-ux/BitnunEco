@@ -1,1 +1,0 @@
-HashMap<std::string::String, HashMap<std::string::String, bool>>: std::marker::Copy
