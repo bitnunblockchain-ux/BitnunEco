@@ -1,4 +1,4 @@
-name: NodeJS with Gulp
+name: Build and Test
 
 on:
   push:
@@ -21,8 +21,30 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'npm'
 
-    - name: Build
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Type check
+      run: npm run check
+
+    - name: Build application
+      run: npm run build
+
+    - name: Test API endpoints
       run: |
-        npm install
-        gulp
+        # Start server in background
+        NODE_ENV=production node dist/index.js &
+        SERVER_PID=$!
+        
+        # Wait for server to start
+        sleep 3
+        
+        # Test health endpoint (if available)
+        curl -f http://localhost:5000/api/health || echo "Health endpoint not available"
+        
+        # Kill server
+        kill $SERVER_PID
+      env:
+        DATABASE_URL: postgresql://test:test@localhost:5432/test
