@@ -34,7 +34,7 @@ export default function Gamification() {
 
   const user = userStats?.user;
   const achievements = userStats?.achievements || [];
-  const experienceProgress = user ? ((user.experience % 1000) / 1000) * 100 : 0;
+  const experienceProgress = user && user.experience ? ((user.experience % 1000) / 1000) * 100 : 0;
 
   return (
     <div className="pt-20 py-20">

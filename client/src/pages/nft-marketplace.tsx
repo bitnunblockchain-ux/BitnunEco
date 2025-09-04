@@ -80,7 +80,7 @@ export default function NFTMarketplace() {
           {nfts?.map((nft) => (
             <Card key={nft.id} className="stats-card overflow-hidden" data-testid={`nft-card-${nft.id}`}>
               <img 
-                src={nft.imageUrl} 
+                src={nft.imageUrl || ''} 
                 alt={nft.name}
                 className="w-full h-48 object-cover"
                 loading="lazy"

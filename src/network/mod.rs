@@ -1,14 +1,7 @@
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
-use web_sys::{WebSocket, MessageEvent, CloseEvent, Event};
 use std::collections::HashMap;
 use crate::console_log;
-
-pub mod peer_manager;
-pub mod message_handler;
-
-pub use peer_manager::*;
-pub use message_handler::*;
 
 #[wasm_bindgen]
 #[derive(Clone, Debug, Serialize, Deserialize)]
