@@ -1,0 +1,1 @@
+{\n  "buildCommand": "npm run build",\n  "outputDirectory": "dist/public"\n}
