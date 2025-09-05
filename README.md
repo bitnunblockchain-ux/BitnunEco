@@ -6,7 +6,7 @@ A TypeScript-based web application ready for deployment on [Vercel](https://verc
 
 1. **Install dependencies:**
    ```bash
-   npm install
+   npm install --legacy-peer-deps
    ```
 
 2. **Set up environment variables:**
@@ -24,7 +24,41 @@ A TypeScript-based web application ready for deployment on [Vercel](https://verc
 
 ## Deployment
 
-Push to the `main` branch or connect your repo to Vercel.
+### Deploy to Vercel
+
+1. **Quick Deploy:**
+   - Connect your GitHub repository to Vercel
+   - Vercel will automatically detect the configuration from `vercel.json`
+   - The app will be deployed with the serverless API endpoints
+
+2. **Manual Deploy with Vercel CLI:**
+   ```bash
+   # Install Vercel CLI
+   npm i -g vercel
+   
+   # Deploy
+   vercel
+   ```
+
+3. **Environment Variables:**
+   - Set up environment variables in the Vercel dashboard
+   - See `.env.example` for required variables
+
+### Configuration
+
+The project includes:
+- **Frontend**: React app built with Vite → deployed as static files
+- **Backend**: Express API → deployed as Vercel serverless functions
+- **API Routes**: Available at `/api/*` endpoints
+
+All API routes are automatically available:
+- `/api/user/:id` - Get user data
+- `/api/leaderboard` - Get user leaderboard
+- `/api/actions` - Action mining endpoints
+- `/api/nfts` - NFT marketplace endpoints
+- `/api/transactions` - Transaction history
+- `/api/achievements` - User achievements
+- `/api/stats` - Global statistics
 
 ## Environment Variables
 
